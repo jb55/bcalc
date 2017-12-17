@@ -44,10 +44,27 @@ line: T_NEWLINE
     | expr T_NEWLINE { num_print(&$1); printf("\n"); }
 ;
 
-expr: T_INT                 { num_init(&$$); }
-    | T_FLOAT               { num_init(&$$); $$.floatval = $1; }
-    | T_INT T_UNIT          { num_init(&$$); $$.intval = $1; $$.unit = $2; }
-    | T_FLOAT T_UNIT        { num_init(&$$); $$.floatval = $1; $$.unit = $2; }
+expr:
+    | T_INT T_UNIT          { num_init(&$$);
+                              $$.intval = $1;
+                              $$.type = TYPE_INT;
+                              $$.unit = $2;
+                              num_assign(&$$, &$$);
+                            }
+    | T_FLOAT T_UNIT        { num_init(&$$);
+                              $$.floatval = $1;
+                              $$.type = TYPE_FLOAT;
+                              $$.unit = $2;
+                              num_assign(&$$, &$$);
+                            }
+    /* | T_INT                 { num_init(&$$); */
+    /*                           $$.intval = $1; */
+    /*                           $$.type = TYPE_INT; */
+    /*                         } */
+    /* | T_FLOAT               { num_init(&$$); */
+    /*                           $$.floatval = $1; */
+    /*                           $$.type = TYPE_FLOAT; */
+    /*                         } */
     | expr T_PLUS expr      { num_add(&$$, &$1, &$3); }
     | expr T_MINUS expr     { num_sub(&$$, &$1, &$3); }
     | expr T_MULTIPLY expr  { num_mul(&$$, &$1, &$3); }

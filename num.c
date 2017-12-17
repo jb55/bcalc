@@ -85,11 +85,12 @@ num_div(struct num *dst, struct num *a, struct num *b) {
 
 void
 num_assign(struct num *dst, struct num *a) {
-  dst->type = TYPE_INT;
-  dst->unit = UNIT_MSATOSHI;
-  dst->intval = num_to_msat(a);
+  struct num num;
+  num.type = TYPE_INT;
+  num.unit = UNIT_MSATOSHI;
+  num.intval = num_to_msat(a);
+  *dst = num;
 }
-
 
 void
 num_print(struct num *num) {
