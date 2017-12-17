@@ -141,7 +141,7 @@ num_print(struct num *num, enum unit format) {
   double d = num->type == TYPE_FLOAT? num->floatval : (double)num->intval;
   d /= (double)msat_multiple;
   sprintf (buffer, "%.11f", d);
-  trim_zeros(buffer, 1);
+  trim_zeros(buffer, 12);
   printf("%s", buffer);
 }
 

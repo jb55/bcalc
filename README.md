@@ -7,7 +7,6 @@
 
     $ bcalc <<<'1 msat + 2 sats + 3 bits'
 
-
 ## Install
 
     $ make install
