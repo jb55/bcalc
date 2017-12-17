@@ -3,6 +3,7 @@ BIN=bcalc
 DEPS=$(wildcard deps/*/*.c) $(GEN)
 PREFIX ?= /usr/local
 
+CFLAGS = -std=c99
 SRC  = num.c
 DEPS = $(wildcard deps/*/*.c) $(SRC)
 OBJS = $(DEPS:.c=.o) parser.tab.o lex.yy.o
