@@ -5,13 +5,8 @@
 
 #include "num.h"
 
-extern int yylex();
-extern int yyparse();
-extern FILE* yyin;
+enum unit g_output_format;
 
-char buffer[255];
-
-void yyerror(const char* s);
 %}
 
 %union {
@@ -41,11 +36,10 @@ calc:
 ;
 
 line: T_NEWLINE
-    | expr T_NEWLINE { num_print(&$1); printf("\n"); }
-;
+    | expr T_NEWLINE { num_print(&$1, g_output_format); }
+    ;
 
-expr:
-    | T_INT T_UNIT          { num_init(&$$);
+expr: T_INT T_UNIT          { num_init(&$$);
                               $$.intval = $1;
                               $$.type = TYPE_INT;
                               $$.unit = $2;
@@ -74,17 +68,3 @@ expr:
 
 %%
 
-int main() {
-  yyin = stdin;
-
-  do {
-    yyparse();
-  } while(!feof(yyin));
-
-  return 0;
-}
-
-void yyerror(const char* s) {
-  fprintf(stderr, "Parse error: %s\n", s);
-  exit(1);
-}

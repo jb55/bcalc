@@ -4,11 +4,13 @@
 
 #include <stdint.h>
 
-#define MSATOSHI 100000000000LL
-#define SATOSHI  100000000LL
-#define FINNEY   10000000LL
-#define BITS     1000000LL
-#define MBTC     1000LL
+// multiples of msat
+#define MSATOSHI 1LL
+#define SATOSHI  1000LL
+#define FINNEY   10000LL
+#define BITS     100000LL
+#define MBTC     100000000LL
+#define BTC      100000000000LL
 
 enum unit {
   UNIT_BTC,
@@ -42,6 +44,7 @@ void num_mul(struct num *dst, struct num *a, struct num *b);
 void num_div(struct num *dst, struct num *a, struct num *b);
 void num_assign(struct num *dst, struct num *a);
 void num_init(struct num *num);
-void num_print(struct num *num);
+void num_print(struct num *num, enum unit unit);
+char *unit_name(enum unit unit);
 
 #endif /* UNIT_H */

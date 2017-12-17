@@ -3,9 +3,10 @@ BIN=bcalc
 DEPS=$(wildcard deps/*/*.c) $(GEN)
 PREFIX ?= /usr/local
 
-DEPS = $(wildcard deps/*/*.c)
+SRC  = num.c
+DEPS = $(wildcard deps/*/*.c) $(SRC)
 OBJS = $(DEPS:.c=.o) parser.tab.o lex.yy.o
-GEN=parser.tab.c parser.tab.h lex.yy.c $(OBJS)
+GEN  = parser.tab.c parser.tab.h lex.yy.c $(OBJS)
 
 
 all: $(BIN)
@@ -20,8 +21,8 @@ install: $(BIN)
 	mkdir -p $(PREFIX)/bin
 	cp $(BIN) $(PREFIX)/bin
 
-$(BIN): $(OBJS)
-	$(CC) -o $@ num.c $(OBJS)
+$(BIN): $(OBJS) bcalc.c
+	$(CC) -Ideps -o $@ bcalc.c $(OBJS)
 
 clean:
 	rm -f $(GEN)

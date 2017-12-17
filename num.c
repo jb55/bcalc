@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <math.h>
 #include <inttypes.h>
+#include <string.h>
 #include "num.h"
 
 void
@@ -21,15 +22,15 @@ num_to_msat(struct num *num) {
       assert("fractional millisatoshis are not yet supported");
       return (int64_t)val;
     case UNIT_SATOSHI:
-      return (int64_t)(val * 1000);
+      return (int64_t)(val * SATOSHI);
     case UNIT_FINNEY:
-      return (int64_t)(val * 10000);
+      return (int64_t)(val * FINNEY);
     case UNIT_BITS:
-      return (int64_t)(val * 100000);
+      return (int64_t)(val * BITS);
     case UNIT_MBTC:
-      return (int64_t)(val * 100000000);
+      return (int64_t)(val * MBTC);
     case UNIT_BTC:
-      return (int64_t)(val * 100000000000);
+      return (int64_t)(val * BTC);
     }
   }
 
@@ -38,15 +39,15 @@ num_to_msat(struct num *num) {
   case UNIT_MSATOSHI:
     return val;
   case UNIT_SATOSHI:
-    return val * 1000;
+    return val * SATOSHI;
   case UNIT_FINNEY:
-    return val * 10000;
+    return val * FINNEY;
   case UNIT_BITS:
-    return val * 100000;
+    return val * BITS;
   case UNIT_MBTC:
-    return val * 100000000;
+    return val * MBTC;
   case UNIT_BTC:
-    return val * 100000000000;
+    return val * BTC;
   }
 }
 
@@ -79,8 +80,6 @@ num_div(struct num *dst, struct num *a, struct num *b) {
   dst->type = TYPE_INT;
   dst->unit = UNIT_MSATOSHI;
   dst->intval = num_to_msat(a) / num_to_msat(b);
-  assert(fabs((double)dst->intval -
-              ((double)num_to_msat(a) / (double)num_to_msat(b))) <= 0.00005);
 }
 
 void
@@ -92,10 +91,70 @@ num_assign(struct num *dst, struct num *a) {
   *dst = num;
 }
 
+int64_t
+unit_msat_multiple(enum unit format) {
+  switch (format) {
+  case UNIT_MSATOSHI: return MSATOSHI;
+  case UNIT_SATOSHI:  return SATOSHI;
+  case UNIT_FINNEY:   return FINNEY;
+  case UNIT_BITS:     return BITS;
+  case UNIT_MBTC:     return MBTC;
+  case UNIT_BTC:      return BTC;
+  }
+}
+
+
+static void
+trim_zeros (char *s, int n)
+{
+  char *p;
+  int count;
+
+  p = strchr (s,'.');         // Find decimal point, if any.
+  if (p != NULL) {
+    count = n;              // Adjust for more or less decimals.
+    while (count >= 0) {    // Maximum decimals allowed.
+      count--;
+      if (*p == '\0')    // If there's less than desired.
+        break;
+      p++;               // Next character.
+    }
+
+    *p-- = '\0';            // Truncate string.
+    while (*p == '0')       // Remove trailing zeros.
+      *p-- = '\0';
+
+    if (*p == '.') {        // If all decimals were zeros, remove ".".
+      *p = '\0';
+    }
+  }
+}
+
 void
-num_print(struct num *num) {
-  if (num->type == TYPE_FLOAT)
-    printf("%f ", num->floatval);
-  else
-    printf("%" PRId64, num->intval);
+num_print(struct num *num, enum unit format) {
+  static char buffer[255];
+  int64_t msat_multiple = unit_msat_multiple(format);
+
+  if (format) {
+  }
+
+  double d = num->type == TYPE_FLOAT? num->floatval : (double)num->intval;
+  d /= (double)msat_multiple;
+  sprintf (buffer, "%.11f", d);
+  trim_zeros(buffer, 1);
+  printf("%s", buffer);
+}
+
+
+
+char *
+unit_name(enum unit unit) {
+  switch (unit) {
+  case UNIT_MSATOSHI: return "msat";
+  case UNIT_SATOSHI:  return "sat";
+  case UNIT_FINNEY:   return "finney";
+  case UNIT_BITS:     return "bits";
+  case UNIT_MBTC:     return "mBTC";
+  case UNIT_BTC:      return "BTC";
+  }
 }
