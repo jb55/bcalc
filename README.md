@@ -1,6 +1,8 @@
 
 # bcalc
 
+[![Build Status](https://travis-ci.org/jb55/bcalc.svg)](https://travis-ci.org/jb55/bcalc)
+
   A simple calculator that understands Bitcoin Units
 
 ## Examples
