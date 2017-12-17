@@ -34,4 +34,14 @@ struct num
   };
 };
 
+
+
+void num_add(struct num *dst, struct num *a, struct num *b);
+void num_sub(struct num *dst, struct num *a, struct num *b);
+void num_mul(struct num *dst, struct num *a, struct num *b);
+void num_div(struct num *dst, struct num *a, struct num *b);
+void num_assign(struct num *dst, struct num *a);
+void num_init(struct num *num);
+void num_print(struct num *num);
+
 #endif /* UNIT_H */
