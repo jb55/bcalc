@@ -28,8 +28,8 @@ format_setting(btc, UNIT_BTC)
 format_setting(mbtc, UNIT_MBTC)
 format_setting(bits, UNIT_BITS)
 format_setting(finney, UNIT_FINNEY)
-format_setting(satoshis, UNIT_SATOSHI)
-format_setting(msatoshis, UNIT_MSATOSHI)
+format_setting(sat, UNIT_SATOSHI)
+format_setting(msat, UNIT_MSATOSHI)
 
 
 
@@ -43,9 +43,9 @@ int main(int argc, char *argv[argc]) {
   command_option(&cmd, "-B", "--btc",       "output BTC", btc);
   command_option(&cmd, "-M", "--mbtc",      "output mBTC", mbtc);
   command_option(&cmd, "-b", "--bits",      "output bits", bits);
-  command_option(&cmd, "-f", "--finneys",   "output finneys", finney);
-  command_option(&cmd, "-s", "--satoshis",  "output satoshis (default)", satoshis);
-  command_option(&cmd, "-m", "--millisatoshis", "output millisatoshis", msatoshis);
+  command_option(&cmd, "-f", "--finney",    "output finneys", finney);
+  command_option(&cmd, "-s", "--sat",       "output satoshis (default)", sat);
+  command_option(&cmd, "-m", "--msat",      "output millisatoshis", msat);
   command_option(&cmd, "-p", "--print-unit", "output the selected unit at the end",
                  print_unit);
 
