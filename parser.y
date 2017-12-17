@@ -51,18 +51,10 @@ expr: T_INT T_UNIT          { num_init(&$$);
                               $$.unit = $2;
                               num_assign(&$$, &$$);
                             }
-    /* | T_INT                 { num_init(&$$); */
-    /*                           $$.intval = $1; */
-    /*                           $$.type = TYPE_INT; */
-    /*                         } */
-    /* | T_FLOAT               { num_init(&$$); */
-    /*                           $$.floatval = $1; */
-    /*                           $$.type = TYPE_FLOAT; */
-    /*                         } */
     | expr T_PLUS expr      { num_add(&$$, &$1, &$3); }
     | expr T_MINUS expr     { num_sub(&$$, &$1, &$3); }
-    | expr T_MULTIPLY expr  { num_mul(&$$, &$1, &$3); }
-    | expr T_DIVIDE expr    { num_div(&$$, &$1, &$3); }
+    /* | expr T_MULTIPLY expr  { num_mul(&$$, &$1, &$3); } */
+    /* | expr T_DIVIDE expr    { num_div(&$$, &$1, &$3); } */
     | T_LEFT expr T_RIGHT   { num_init(&$$); num_assign(&$$, &$2); }
 ;
 

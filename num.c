@@ -68,6 +68,18 @@ num_sub(struct num *dst, struct num *a, struct num *b) {
   dst->intval = num_to_msat(a) - num_to_msat(b);
 }
 
+int64_t
+unit_msat_multiple(enum unit format) {
+  switch (format) {
+  case UNIT_MSATOSHI: return MSATOSHI;
+  case UNIT_SATOSHI:  return SATOSHI;
+  case UNIT_FINNEY:   return FINNEY;
+  case UNIT_BITS:     return BITS;
+  case UNIT_MBTC:     return MBTC;
+  case UNIT_BTC:      return BTC;
+  }
+}
+
 void
 num_mul(struct num *dst, struct num *a, struct num *b) {
   dst->type = TYPE_INT;
@@ -90,19 +102,6 @@ num_assign(struct num *dst, struct num *a) {
   num.intval = num_to_msat(a);
   *dst = num;
 }
-
-int64_t
-unit_msat_multiple(enum unit format) {
-  switch (format) {
-  case UNIT_MSATOSHI: return MSATOSHI;
-  case UNIT_SATOSHI:  return SATOSHI;
-  case UNIT_FINNEY:   return FINNEY;
-  case UNIT_BITS:     return BITS;
-  case UNIT_MBTC:     return MBTC;
-  case UNIT_BTC:      return BTC;
-  }
-}
-
 
 static void
 trim_zeros (char *s, int n)
