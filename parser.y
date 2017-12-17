@@ -6,6 +6,7 @@
 #include "num.h"
 
 enum unit g_output_format;
+int g_print_unit;
 
 %}
 
@@ -36,7 +37,7 @@ calc:
 ;
 
 line: T_NEWLINE
-    | expr T_NEWLINE { num_print(&$1, g_output_format); }
+    | expr T_NEWLINE { num_print(&$1, g_output_format, g_print_unit); }
     ;
 
 expr: T_INT T_UNIT          { num_init(&$$);

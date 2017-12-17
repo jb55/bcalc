@@ -44,7 +44,7 @@ void num_mul(struct num *dst, struct num *a, struct num *b);
 void num_div(struct num *dst, struct num *a, struct num *b);
 void num_assign(struct num *dst, struct num *a);
 void num_init(struct num *num);
-void num_print(struct num *num, enum unit unit);
+void num_print(struct num *num, enum unit unit, int print_unit);
 char *unit_name(enum unit unit);
 
 #endif /* UNIT_H */

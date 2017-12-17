@@ -7,6 +7,7 @@
 extern int yylex();
 extern int yyparse();
 extern enum unit g_output_format;
+extern int g_print_unit;
 
 void yyerror(const char* s);
 
@@ -57,15 +58,11 @@ int main(int argc, char *argv[argc]) {
   command_free(&cmd);
 
   g_output_format = settings.format;
+  g_print_unit = settings.print_unit;
 
   do {
     yyparse();
   } while(!feof(stdin));
-
-  if (settings.print_unit)
-    printf(" %s\n", unit_name(settings.format));
-  else
-    putchar('\n');
 
   return 0;
 }

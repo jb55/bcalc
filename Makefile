@@ -23,7 +23,7 @@ install: $(BIN)
 	cp $(BIN) $(PREFIX)/bin
 
 $(BIN): $(OBJS) bcalc.c
-	$(CC) -Ideps -o $@ bcalc.c $(OBJS)
+	$(CC) $(CFLAGS) -Ideps -o $@ bcalc.c $(OBJS)
 
 clean:
 	rm -f $(GEN)

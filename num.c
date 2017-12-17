@@ -130,18 +130,20 @@ trim_zeros (char *s, int n)
 }
 
 void
-num_print(struct num *num, enum unit format) {
+num_print(struct num *num, enum unit format, int print_unit) {
   static char buffer[255];
   int64_t msat_multiple = unit_msat_multiple(format);
 
-  if (format) {
-  }
 
   double d = num->type == TYPE_FLOAT? num->floatval : (double)num->intval;
   d /= (double)msat_multiple;
   sprintf (buffer, "%.11f", d);
   trim_zeros(buffer, 12);
   printf("%s", buffer);
+
+  if (print_unit)
+    printf(" %s", unit_name(format));
+  printf("\n");
 }
 
 
