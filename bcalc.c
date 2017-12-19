@@ -24,15 +24,12 @@ static void print_unit(command_t *self) { \
   ((struct settings*)self->data)->print_unit = 1; \
 }
 
-
 format_setting(btc, UNIT_BTC)
 format_setting(mbtc, UNIT_MBTC)
 format_setting(bits, UNIT_BITS)
 format_setting(finney, UNIT_FINNEY)
 format_setting(sat, UNIT_SATOSHI)
 format_setting(msat, UNIT_MSATOSHI)
-
-
 
 int main(int argc, char *argv[argc]) {
   command_t cmd;
