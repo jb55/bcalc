@@ -3,3 +3,5 @@ scalar multiplication,--btc,10 * 1 BTC,10
 multiply 1 BTC to the smallest unit,-pm,1 BTC * 0.00000000001,1 msat
 lots of msats,-B,2 msat * 100000000000,2
 chained multiply,-B,2100 btc * 0.1 * 0.1,21
+10000 satoshis in bits,--bits,10000 sats,100
+satoshis in bits to smallest bit,-bp,10000 sats * 0.01,1 bits
