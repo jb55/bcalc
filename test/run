@@ -2,17 +2,21 @@
 
 n=1
 c=$(wc -l < tests.csv)
+fail=0
 
 printf "1..%d\n" "$c"
 
 while IFS=, read -r description args input expected
 do
     output=$(../bcalc $args <<<"$input")
-    if [ "$output" != "$expected" ]; then
+    if [ "$description" == "" ] || [ "$output" != "$expected" ]; then
         printf "not ok %d - %s\n" "$n" "$description"
         printf "#\n#    got '%s', expected '%s'\n#\n" "$output" "$expected"
+        fail=1
     else
         printf "ok %d - %s\n" "$n" "$description"
     fi
     n=$((n + 1))
 done < tests.csv
+
+exit $fail

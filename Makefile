@@ -22,8 +22,14 @@ install: $(BIN)
 	mkdir -p $(PREFIX)/bin
 	cp $(BIN) $(PREFIX)/bin
 
+test: fake
+	@sh -c "cd test && ./run"
+
 $(BIN): $(OBJS) bcalc.c num.h
 	$(CC) $(CFLAGS) -Ideps -o $@ bcalc.c $(OBJS)
 
-clean:
+clean: fake
 	rm -f $(GEN)
+
+
+.PHONY: fake

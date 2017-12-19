@@ -1,2 +1,2 @@
 scalar division,--btc -p,1 BTC / 10,0.1 BTC
-scalar multiplication,--btc,10 * 1 BTC,1
+scalar multiplication,--btc,10 * 1 BTC,10
