@@ -6,4 +6,10 @@ lots of msats,-B,2 msat * 100000000000,2
 chained multiply,-B,2100 btc * 0.1 * 0.1,21
 10000 satoshis in bits,--bits,10000 sats,100
 satoshis in bits to smallest bit,-bp,10000 sats * 0.01,1 bits
-parens,-B,(10 finneys * 1000) / 10,0.0001
+parens,-B,(10 finney * 1000) / 10,0.0001
+finney plural,-f,10 finneys,10
+finney singular,-f,10 finney,10
+satoshi singular,-sp,10 sat,10 sat
+satoshi plural,-sp,10 sats,10 sat
+msat singular,-mp,1 msat,1 msat
+msat plural,-mp,1 msats,1 msat
