@@ -22,7 +22,7 @@ install: $(BIN)
 	mkdir -p $(PREFIX)/bin
 	cp $(BIN) $(PREFIX)/bin
 
-test: fake
+test: $(BIN) fake
 	@sh -c "cd test && ./run"
 
 $(BIN): $(OBJS) bcalc.c num.h
