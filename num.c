@@ -31,6 +31,8 @@ num_to_msat(struct num *num) {
       return (int64_t)(val * MBTC);
     case UNIT_BTC:
       return (int64_t)(val * BTC);
+    case UNIT_NONE:
+      assert(!"got UNIT_NONE in num_to_msat");
     }
   }
 
@@ -48,6 +50,8 @@ num_to_msat(struct num *num) {
     return val * MBTC;
   case UNIT_BTC:
     return val * BTC;
+  case UNIT_NONE:
+    assert(!"got UNIT_NONE in num_to_msat");
   }
 }
 
@@ -77,21 +81,44 @@ unit_msat_multiple(enum unit format) {
   case UNIT_BITS:     return BITS;
   case UNIT_MBTC:     return MBTC;
   case UNIT_BTC:      return BTC;
+  case UNIT_NONE:     assert(!"got UNIT_NONE in num_to_msat");
   }
 }
 
 void
 num_mul(struct num *dst, struct num *a, struct num *b) {
+  assert(b->unit == UNIT_NONE);
   dst->type = TYPE_INT;
   dst->unit = UNIT_MSATOSHI;
-  dst->intval = num_to_msat(a) * num_to_msat(b);
+  dst->intval = num_to_msat(a) * (b->type == TYPE_FLOAT? b->floatval
+                                                       : b->intval);
 }
 
 void
 num_div(struct num *dst, struct num *a, struct num *b) {
+  assert(b->unit == UNIT_NONE);
   dst->type = TYPE_INT;
   dst->unit = UNIT_MSATOSHI;
-  dst->intval = num_to_msat(a) / num_to_msat(b);
+  dst->intval = num_to_msat(a) / (b->type == TYPE_FLOAT? b->floatval
+                                                       : b->intval);
+}
+
+void
+num_init_float(struct num *num, double d, enum unit unit) {
+  num_init(num);
+  num->floatval = d;
+  num->type = TYPE_FLOAT;
+  num->unit = unit;
+  if (unit != UNIT_NONE) num_assign(num, num);
+}
+
+void
+num_init_int(struct num *num, int64_t val, enum unit unit) {
+  num_init(num);
+  num->intval = val;
+  num->type = TYPE_INT;
+  num->unit = unit;
+  if (unit != UNIT_NONE) num_assign(num, num);
 }
 
 void
@@ -157,5 +184,6 @@ unit_name(enum unit unit) {
   case UNIT_BITS:     return "bits";
   case UNIT_MBTC:     return "mBTC";
   case UNIT_BTC:      return "BTC";
+  case UNIT_NONE:     assert(!"got UNIT_NONE in num_to_msat");
   }
 }

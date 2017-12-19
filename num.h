@@ -19,6 +19,7 @@ enum unit {
   UNIT_FINNEY,
   UNIT_SATOSHI,
   UNIT_MSATOSHI,
+  UNIT_NONE,
 };
 
 enum num_type {

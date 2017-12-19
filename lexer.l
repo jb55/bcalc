@@ -2,7 +2,6 @@
 
 %{
 #include <stdio.h>
-#include <gmp.h>
 #include "num.h"
 
 #define YY_DECL int yylex()
