@@ -6,6 +6,7 @@ fail=0
 
 printf "1..%d\n" "$c"
 
+tail -n+2 tests.csv | \
 while IFS=, read -r description args input expected
 do
     output=$(../bcalc $args <<<"$input" 2>&1)
@@ -17,6 +18,6 @@ do
         printf "ok %d - %s\n" "$n" "$description"
     fi
     n=$((n + 1))
-done < tests.csv
+done
 
 exit $fail

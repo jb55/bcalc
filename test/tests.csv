@@ -1,3 +1,4 @@
+description,args,input,expected output
 scalar division,--btc -p,1 BTC / 10,0.1 BTC
 scalar multiplication,--btc,10 * 1 BTC,10
 multiply 1 BTC to the smallest unit,-pm,1 BTC * 0.00000000001,1 msat
