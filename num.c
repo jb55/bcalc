@@ -19,7 +19,6 @@ num_to_msat(struct num *num) {
     double val = num->floatval;
     switch (num->unit) {
     case UNIT_MSATOSHI:
-      assert("fractional millisatoshis are not yet supported");
       return (int64_t)val;
     case UNIT_SATOSHI:
       return (int64_t)(val * SATOSHI);
@@ -90,8 +89,18 @@ num_mul(struct num *dst, struct num *a, struct num *b) {
   assert(b->unit == UNIT_NONE);
   dst->type = TYPE_INT;
   dst->unit = UNIT_MSATOSHI;
-  dst->intval = num_to_msat(a) * (b->type == TYPE_FLOAT? b->floatval
-                                                       : b->intval);
+  int64_t num = num_to_msat(a);
+  switch (b->type) {
+  case TYPE_FLOAT:
+    dst->intval = (int64_t)(num * b->floatval);
+    double d = (double)num * b->floatval;
+    // FIXME: floating point sucks
+    if (d <= 1.000000000000001L && 0.99999999999999L <= d) dst->intval = 1LL;
+    break;
+  case TYPE_INT:
+    dst->intval = num * b->intval;
+    break;
+  }
 }
 
 void
