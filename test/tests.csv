@@ -6,3 +6,4 @@ lots of msats,-B,2 msat * 100000000000,2
 chained multiply,-B,2100 btc * 0.1 * 0.1,21
 10000 satoshis in bits,--bits,10000 sats,100
 satoshis in bits to smallest bit,-bp,10000 sats * 0.01,1 bits
+parens,-B,(10 finneys * 1000) / 10,0.0001

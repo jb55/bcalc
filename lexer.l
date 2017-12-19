@@ -25,7 +25,7 @@
   return T_UNIT;
 }
 
-[fF][iI][nN][nN][eE][yY]? {
+[fF][iI][nN][nN][eE][yY]?[sS]? {
   yylval.unit = UNIT_FINNEY;
   return T_UNIT;
 }
