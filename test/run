@@ -8,7 +8,7 @@ printf "1..%d\n" "$c"
 
 while IFS=, read -r description args input expected
 do
-    output=$(../bcalc $args <<<"$input")
+    output=$(../bcalc $args <<<"$input" 2>&1)
     if [ "$description" == "" ] || [ "$output" != "$expected" ]; then
         printf "not ok %d - %s\n" "$n" "$description"
         printf "#\n#    got '%s', expected '%s'\n#\n" "$output" "$expected"
