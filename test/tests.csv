@@ -1,4 +1,4 @@
 scalar division,--btc -p,1 BTC / 10,0.1 BTC
 scalar multiplication,--btc,10 * 1 BTC,10
-simple add,-pm,1 BTC * 0.00000000001,1 msat
+multiply 1 BTC to the smallest unit,-pm,1 BTC * 0.00000000001,1 msat
 lots of msats,-B,1 msat * 100000000000,1
