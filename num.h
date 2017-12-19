@@ -46,6 +46,10 @@ void num_div(struct num *dst, struct num *a, struct num *b);
 void num_assign(struct num *dst, struct num *a);
 void num_init(struct num *num);
 void num_print(struct num *num, enum unit unit, int print_unit);
+void num_init_float(struct num *num, double val, enum unit unit);
+void num_init_int(struct num *num, int64_t val, enum unit unit);
+
+
 char *unit_name(enum unit unit);
 
 #endif /* UNIT_H */

@@ -22,7 +22,7 @@ install: $(BIN)
 	mkdir -p $(PREFIX)/bin
 	cp $(BIN) $(PREFIX)/bin
 
-$(BIN): $(OBJS) bcalc.c
+$(BIN): $(OBJS) bcalc.c num.h
 	$(CC) $(CFLAGS) -Ideps -o $@ bcalc.c $(OBJS)
 
 clean:
