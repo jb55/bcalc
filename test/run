@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+n=1
+c=$(wc -l < tests.csv)
+
+printf "1..%d\n" "$c"
+
+while IFS=, read -r description args input expected
+do
+    output=$(../bcalc $args <<<"$input")
+    if [ "$output" != "$expected" ]; then
+        printf "not ok %d - %s\n" "$n" "$description"
+        printf "#\n#    got '%s', expected '%s'\n#\n" "$output" "$expected"
+    else
+        printf "ok %d - %s\n" "$n" "$description"
+    fi
+    n=$((n + 1))
+done < tests.csv
