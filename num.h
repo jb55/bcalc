@@ -19,6 +19,7 @@ enum unit {
   UNIT_FINNEY,
   UNIT_SATOSHI,
   UNIT_MSATOSHI,
+  UNIT_OTHER,
   UNIT_NONE,
 };
 
@@ -31,13 +32,15 @@ struct num
 {
   enum num_type type;
   enum unit unit;
+  const char *unitstr;
   union {
     int64_t intval;
     double floatval;
   };
 };
 
-
+extern struct num g_other;
+extern char *g_other_name;
 
 void num_add(struct num *dst, struct num *a, struct num *b);
 void num_sub(struct num *dst, struct num *a, struct num *b);

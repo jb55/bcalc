@@ -9,6 +9,8 @@ extern int yylex();
 extern int yyparse();
 extern enum unit g_output_format;
 extern int g_print_unit;
+struct num g_other;
+char *g_other_name = "other";
 
 void yyerror(const char* s);
 
@@ -31,6 +33,34 @@ format_setting(bits, UNIT_BITS)
 format_setting(finney, UNIT_FINNEY)
 format_setting(sat, UNIT_SATOSHI)
 format_setting(msat, UNIT_MSATOSHI)
+format_setting(optother, UNIT_OTHER)
+
+static void optusd(command_t *self) {
+  struct settings *set = (struct settings*)self->data;
+  set->format = UNIT_OTHER;
+  g_other_name = "USD";
+}
+
+static void
+setprice(command_t *cmd) {
+  const char *p = cmd->arg;
+  char *endptr;
+  g_other.unit = UNIT_OTHER;
+  g_other.type = TYPE_INT;
+  g_other.intval = strtoull(p, &endptr, 10);
+
+  // float?
+  if (endptr) {
+    if (*endptr == '.') {
+      g_other.floatval = atof(p);
+      g_other.type = TYPE_FLOAT;
+      if (g_other.floatval == 0) {
+        fprintf(stderr, "error: invalid --price value '%s'", p);
+        exit(1);
+      }
+    }
+  }
+}
 
 char *
 join(char *strs[], int len, char *sep) {
@@ -62,6 +92,7 @@ int main(int argc, char *argv[argc]) {
   int yybuffer;
   struct settings settings = { .print_unit = 0, .format = UNIT_SATOSHI };
   cmd.data = (void*)&settings;
+  g_other.unit = UNIT_NONE;
 
   command_init(&cmd, argv[0], "0.0.1");
 
@@ -71,6 +102,9 @@ int main(int argc, char *argv[argc]) {
   command_option(&cmd, "-f", "--finney",    "output finneys", finney);
   command_option(&cmd, "-s", "--sat",       "output satoshis (default)", sat);
   command_option(&cmd, "-m", "--msat",      "output millisatoshis", msat);
+  command_option(&cmd, "-P", "--price <arg>", "set price for arbitrary unit per BTC", setprice);
+  command_option(&cmd, "-o", "--other",  "output arbitrary unit, set by --price", optother);
+  command_option(&cmd, "-u", "--usd",    "output arbitrary usd units", optusd);
   command_option(&cmd, "-p", "--print-unit", "output the selected unit at the end",
                  print_unit);
 

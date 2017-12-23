@@ -3,7 +3,7 @@ BIN=bcalc
 DEPS=$(wildcard deps/*/*.c) $(GEN)
 PREFIX ?= /usr/local
 
-CFLAGS = -std=c99
+CFLAGS = -O0 -g -std=c99
 SRC  = num.c
 DEPS = $(wildcard deps/*/*.c) $(SRC)
 OBJS = $(DEPS:.c=.o) parser.tab.o lex.yy.o
@@ -24,6 +24,9 @@ install: $(BIN)
 
 test: $(BIN) fake
 	@sh -c "cd test && ./run"
+
+TAGS: fake
+	etags -o - *.c > $@
 
 $(BIN): $(OBJS) bcalc.c num.h
 	$(CC) $(CFLAGS) -Ideps -o $@ bcalc.c $(OBJS)

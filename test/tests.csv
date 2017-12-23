@@ -18,3 +18,11 @@ satoshi plural,-sp,10 sats,10 sat
 msat singular,-mp,1 msat,1 msat
 msat plural,-mp,1 msats,1 msat
 arg tokens work,-p --mbtc 1 BTC,,1000 mBTC
+simple fiat test,-p --price 15000 --msat,1 fiat,6666666 msat
+simple fiat test with bits,-p --price 15000 --bits,1 fiat,66.66666 bits
+1 usd is 1 BTC,-p --price 1 --btc,1 usd,1 BTC
+1 BTC is 10 usd,-p --price 10 --usd,1 btc,10 USD
+1 BTC is 1000000 other,-p --price 1000000 --other,100 mbtc,100000 other
+1 other @15k is 66.66666 bits,-p --price 15000 --bits,1 other,66.66666 bits
+# failing
+1 BTC is 15000 usd,-p --price 15000 --usd,1 btc,15000 USD

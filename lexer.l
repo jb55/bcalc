@@ -25,6 +25,11 @@
   return T_UNIT;
 }
 
+fiat|FIAT|alt|ALT|usd|USD|cur|CUR|other|OTHER {
+  yylval.unit = UNIT_OTHER;
+  return T_UNIT;
+}
+
 [fF][iI][nN][nN][eE][yY]?[sS]? {
   yylval.unit = UNIT_FINNEY;
   return T_UNIT;

@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <assert.h>
+#include <stdlib.h>
 #include <math.h>
 #include <inttypes.h>
 #include <string.h>
@@ -13,11 +14,23 @@ num_init(struct num *num) {
   num->intval = 0LL;
 }
 
+void
+error_any() {
+  fprintf(stderr, "error: --price argument required when using arbitrary units\n");
+  exit(1);
+}
+
 static int64_t
 num_to_msat(struct num *num) {
+  double anyval = 1.0;
+
   if (num->type == TYPE_FLOAT) {
     double val = num->floatval;
     switch (num->unit) {
+    case UNIT_OTHER:
+      if (g_other.unit == UNIT_NONE) error_any();
+      return (int64_t)val * (g_other.type == TYPE_FLOAT ? g_other.floatval
+                                                      : (double)g_other.intval);
     case UNIT_MSATOSHI:
       return (int64_t)val;
     case UNIT_SATOSHI:
@@ -47,8 +60,12 @@ num_to_msat(struct num *num) {
     return val * BITS;
   case UNIT_MBTC:
     return val * MBTC;
+  case UNIT_OTHER:
+    if (g_other.unit != UNIT_OTHER) error_any();
+    anyval = g_other.type == TYPE_FLOAT?
+      g_other.floatval : (double)g_other.intval;
   case UNIT_BTC:
-    return val * BTC;
+    return (val/anyval) * BTC;
   case UNIT_NONE:
     assert(!"got UNIT_NONE in num_to_msat");
   }
@@ -79,6 +96,11 @@ unit_msat_multiple(enum unit format) {
   case UNIT_FINNEY:   return FINNEY;
   case UNIT_BITS:     return BITS;
   case UNIT_MBTC:     return MBTC;
+  case UNIT_OTHER:
+    if (g_other.unit != UNIT_OTHER) error_any();
+    return BTC / (g_other.type == TYPE_FLOAT
+      ? g_other.floatval
+      : g_other.intval);
   case UNIT_BTC:      return BTC;
   case UNIT_NONE:     assert(!"got UNIT_NONE in num_to_msat");
   }
@@ -193,6 +215,9 @@ unit_name(enum unit unit) {
   case UNIT_BITS:     return "bits";
   case UNIT_MBTC:     return "mBTC";
   case UNIT_BTC:      return "BTC";
+  case UNIT_OTHER:    return g_other_name;
   case UNIT_NONE:     assert(!"got UNIT_NONE in num_to_msat");
+  default:
+    assert(!"missing unit");
   }
 }
