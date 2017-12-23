@@ -37,6 +37,19 @@
     $ bcalc -pb '10 mbtc * 30'
     300000 bits
 
+  Fiat currencies
+
+    $ bcalc -p --price 20000 --bits 30 usd
+    1500 bits
+
+    $ bcalc -p --price 16000 --usd 780 bits
+    12.48 usd
+
+  The Bitcoin pizza
+
+    $ bcalc -p --price 0.0041 --btc 41 usd
+    10000 BTC
+
 ## Install
 
     $ make install
