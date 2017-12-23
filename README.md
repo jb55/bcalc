@@ -29,7 +29,7 @@
 
   Division
 
-    $ bcalc -p --btc 1 BTC / 100
+    $ bcalc -p --bits 1 BTC / 100
     10000 bits
 
   Multiplication
