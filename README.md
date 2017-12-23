@@ -45,7 +45,7 @@
     $ bcalc --price 16000 --usd 780 bits
     12.48 usd
 
-  The Bitcoin pizza
+  The Bitcoin pizzas
 
     $ bcalc --price 0.0041 --btc 41 usd
     10000 BTC
