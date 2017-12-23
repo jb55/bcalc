@@ -65,7 +65,7 @@ num_to_msat(struct num *num) {
     anyval = g_other.type == TYPE_FLOAT?
       g_other.floatval : (double)g_other.intval;
   case UNIT_BTC:
-    return (val/anyval) * BTC;
+    return val * BTC*(1.0/anyval);
   case UNIT_NONE:
     assert(!"got UNIT_NONE in num_to_msat");
   }
