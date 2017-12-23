@@ -2,6 +2,10 @@ description,args,input,expected output
 scalar division,--btc -p,1 BTC / 10,0.1 BTC
 scalar multiplication,--btc,10 * 1 BTC,10
 multiply 1 BTC to the smallest unit,-pm,1 BTC * 0.00000000001,1 msat
+multiply 10 BTC to the smallest unit,-pm,10 BTC * 0.000000000001,1 msat
+multiply 100 BTC to the smallest unit,-pm,100 BTC * 0.0000000000001,1 msat
+multiply 1000 BTC to the smallest unit,-pm,1000 BTC * 0.00000000000001,1 msat
+multiply 100000 BTC to the smallest unit,-pm,100000 BTC * 0.0000000000000001,1 msat
 lots of msats,-B,2 msat * 100000000000,2
 chained multiply,-B,2100 btc * 0.1 * 0.1,21
 10000 satoshis in bits,--bits,10000 sats,100
