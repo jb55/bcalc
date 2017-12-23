@@ -127,11 +127,22 @@ num_mul(struct num *dst, struct num *a, struct num *b) {
 
 void
 num_div(struct num *dst, struct num *a, struct num *b) {
-  assert(b->unit == UNIT_NONE);
   dst->type = TYPE_INT;
   dst->unit = UNIT_MSATOSHI;
-  dst->intval = num_to_msat(a) / (b->type == TYPE_FLOAT? b->floatval
-                                                       : b->intval);
+
+  if (b->unit == UNIT_NONE) {
+    dst->intval = num_to_msat(a) / (b->type == TYPE_FLOAT? b->floatval
+                                   : b->intval);
+  } else if (a->unit == UNIT_NONE) {
+    assert(!"not working yet");
+    /* dst->type = TYPE_FLOAT; */
+    /* dst->unit = b->unit; */
+    /* double ad = a->type == TYPE_FLOAT? a->floatval : (double)a->intval; */
+    /* int64_t bmsat = num_to_msat(b); */
+  }
+  else {
+    assert(!"shouldnt happen");
+  }
 }
 
 void

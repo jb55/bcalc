@@ -54,8 +54,8 @@ mul_expr: number T_MULTIPLY expr    { num_mul(&$$, &$3, &$1); }
         | expr   T_MULTIPLY number  { num_mul(&$$, &$1, &$3); }
         ;
 
-div_expr: number T_DIVIDE expr   { num_div(&$$, &$3, &$1); }
-        | expr   T_DIVIDE number { num_div(&$$, &$1, &$3); }
+div_expr: /* number T_DIVIDE expr   { num_div(&$$, &$1, &$3); } */
+          expr   T_DIVIDE number { num_div(&$$, &$1, &$3); }
         ;
 
 expr: unit_number
