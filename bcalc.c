@@ -100,8 +100,11 @@ int main(int argc, char *argv[argc]) {
   command_option(&cmd, "-M", "--mbtc",      "output mBTC", mbtc);
   command_option(&cmd, "-b", "--bits",      "output bits", bits);
   command_option(&cmd, "-f", "--finney",    "output finneys", finney);
+  command_option(&cmd, "-f", "--finneys",   "output finneys", finney);
   command_option(&cmd, "-s", "--sat",       "output satoshis (default)", sat);
+  command_option(&cmd, "-s", "--sats",      "output satoshis (default)", sat);
   command_option(&cmd, "-m", "--msat",      "output millisatoshis", msat);
+  command_option(&cmd, "-m", "--msats",     "output millisatoshis", msat);
   command_option(&cmd, "-P", "--price <arg>", "set price for arbitrary unit per BTC", setprice);
   command_option(&cmd, "-o", "--other",   "output arbitrary unit, set by --price", optother);
   command_option(&cmd, "-u", "--usd",     "output arbitrary usd units", optusd);
