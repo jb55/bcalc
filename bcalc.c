@@ -1,6 +1,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "commander/commander.h"
 #include "num.h"
 
@@ -31,8 +32,34 @@ format_setting(finney, UNIT_FINNEY)
 format_setting(sat, UNIT_SATOSHI)
 format_setting(msat, UNIT_MSATOSHI)
 
+char *
+join(char *strs[], int len, char *sep) {
+  char *buf, *p;
+  size_t alloc = 0;
+
+  for(int i = 0; i < len; ++i)
+    alloc += strlen(strs[i]);
+
+  // 5 for some wiggle room
+  alloc += len * strlen(sep) + 5;
+  p = buf = (char*)malloc(alloc);
+
+  for(int i = 0; i < len; ++i) {
+    strcpy(p, strs[i]);
+    p += strlen(strs[i]);
+    if (i != len-1) {
+      strcpy(p, sep);
+      p += strlen(sep);
+    }
+  }
+
+  return buf;
+}
+
 int main(int argc, char *argv[argc]) {
   command_t cmd;
+  char *buffer, *p;
+  int yybuffer;
   struct settings settings = { .print_unit = 0, .format = UNIT_SATOSHI };
   cmd.data = (void*)&settings;
 
@@ -48,19 +75,27 @@ int main(int argc, char *argv[argc]) {
                  print_unit);
 
   command_parse(&cmd, argc, argv);
-  /* printf("additional args:\n"); */
-  /* for (int i = 0; i < cmd.argc; ++i) { */
-  /*   printf("  - '%s'\n", cmd.argv[i]); */
-  /* } */
-  command_free(&cmd);
 
   g_output_format = settings.format;
   g_print_unit = settings.print_unit;
 
-  do {
+  if (cmd.argc) {
+    buffer = join(cmd.argv, cmd.argc, " ");
+    p = &buffer[strlen(buffer)];
+    *p++ = '\n';
+    *p++ = '\0';
+    yybuffer = yy_scan_string(buffer);
     yyparse();
-  } while(!feof(stdin));
+    yy_delete_buffer(yybuffer);
+    free(buffer);
+  }
+  else {
+    do {
+      yyparse();
+    } while(!feof(stdin));
+  }
 
+  command_free(&cmd);
   return 0;
 }
 
