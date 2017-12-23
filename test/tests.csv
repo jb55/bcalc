@@ -17,3 +17,4 @@ satoshi singular,-sp,10 sat,10 sat
 satoshi plural,-sp,10 sats,10 sat
 msat singular,-mp,1 msat,1 msat
 msat plural,-mp,1 msats,1 msat
+arg tokens work,-p --mbtc 1 BTC,,1000 mBTC
