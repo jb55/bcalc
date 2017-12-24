@@ -3,3 +3,4 @@
 /parser.tab.h
 /bcalc
 *.o
+/TAGS

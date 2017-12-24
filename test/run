@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 
+process () {
+    tail -n+2 "$1" | sed -n '/^# failing/q;p'
+}
+
 n=1
-c=$(($(wc -l < tests.csv) - 1))
+c=$(($(process tests.csv | wc -l)))
 
 printf "1..%d\n" "$c"
 
-tail -n+2 tests.csv | sed -n '/^# failing/q;p' | \
+process tests.csv | \
 (fail=0
 while IFS=, read -r description args input expected
 do
