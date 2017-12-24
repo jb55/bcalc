@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 process () {
-    tail -n+2 "$1" | sed -n '/^# failing/q;p'
+    tail -n+2 "$1" | sed -n '/^*failing/q;p'
 }
 
 n=1
