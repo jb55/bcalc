@@ -19,6 +19,10 @@
     return T_UNIT;
 }
 
+in|IN {
+  return T_IN;
+}
+
 [mM]?[bB][tT][cC] {
   int ism = yytext[0] == 'm' || yytext[0] == 'M';
   yylval.unit = ism? UNIT_MBTC : UNIT_BTC;

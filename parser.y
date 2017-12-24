@@ -21,7 +21,7 @@ int g_print_unit;
 %token<floatval> T_FLOAT
 %token<unit> T_UNIT
 
-%token T_PLUS T_MINUS T_MULTIPLY T_DIVIDE T_LEFT T_RIGHT
+%token T_PLUS T_MINUS T_MULTIPLY T_DIVIDE T_LEFT T_RIGHT T_IN
 %token T_NEWLINE T_QUIT
 %left T_PLUS T_MINUS
 %left T_MULTIPLY T_DIVIDE
@@ -38,6 +38,7 @@ calc:
 
 line: T_NEWLINE
     | expr T_NEWLINE { num_print(&$1, g_output_format, g_print_unit); }
+    | expr T_IN T_UNIT T_NEWLINE { num_print(&$1, $3, g_print_unit); }
     ;
 
 unit_number:
