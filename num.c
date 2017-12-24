@@ -29,8 +29,9 @@ num_to_msat(struct num *num) {
     switch (num->unit) {
     case UNIT_OTHER:
       if (g_other.unit == UNIT_NONE) error_any();
-      return (int64_t)val * (g_other.type == TYPE_FLOAT ? g_other.floatval
-                                                      : (double)g_other.intval);
+      double other = 1.0/(g_other.type == TYPE_FLOAT ? g_other.floatval
+                          : (double)g_other.intval);
+      return (int64_t)(val * BTC * other);
     case UNIT_MSATOSHI:
       return (int64_t)val;
     case UNIT_SATOSHI:

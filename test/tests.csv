@@ -26,6 +26,7 @@ simple fiat test with bits,--price 15000 --bits,1 fiat,66.66666 bits
 1 other @15k is 66.66666 bits,--price 15000 --bits,1 other,66.66666 bits
 1 btc/2 should work,--btc -n,1 btc / 2,0.5
 60 usd at 25000 in bits,--bits --price 25000,60 fiat,2400 bits
+penny usd to msats,--price 20000 --msats,0.01 usd,50000 msat
 # failing
 1 BTC is 15000 usd,--price 15000 --usd,1 btc,15000 USD
 # needs implementation
