@@ -19,26 +19,8 @@ struct settings {
   int print_unit;
 };
 
-#define format_setting(name, unit) static void name(command_t *self) { \
-  ((struct settings*)self->data)->format = unit; \
-}
-
 static void no_print_unit(command_t *self) { \
   ((struct settings*)self->data)->print_unit = 0; \
-}
-
-format_setting(btc, UNIT_BTC)
-format_setting(mbtc, UNIT_MBTC)
-format_setting(bits, UNIT_BITS)
-format_setting(finney, UNIT_FINNEY)
-format_setting(sat, UNIT_SATOSHI)
-format_setting(msat, UNIT_MSATOSHI)
-format_setting(optother, UNIT_OTHER)
-
-static void optusd(command_t *self) {
-  struct settings *set = (struct settings*)self->data;
-  set->format = UNIT_OTHER;
-  g_other_name = "USD";
 }
 
 static void
@@ -96,18 +78,7 @@ int main(int argc, char *argv[argc]) {
 
   command_init(&cmd, argv[0], "0.0.1");
 
-  command_option(&cmd, "-B", "--btc",       "output BTC", btc);
-  command_option(&cmd, "-M", "--mbtc",      "output mBTC", mbtc);
-  command_option(&cmd, "-b", "--bits",      "output bits", bits);
-  command_option(&cmd, "-f", "--finney",    "output finneys", finney);
-  command_option(&cmd, "-f", "--finneys",   "output finneys", finney);
-  command_option(&cmd, "-s", "--sat",       "output satoshis (default)", sat);
-  command_option(&cmd, "-s", "--sats",      "output satoshis (default)", sat);
-  command_option(&cmd, "-m", "--msat",      "output millisatoshis", msat);
-  command_option(&cmd, "-m", "--msats",     "output millisatoshis", msat);
   command_option(&cmd, "-P", "--price <arg>", "set price for arbitrary unit per BTC", setprice);
-  command_option(&cmd, "-o", "--other",   "output arbitrary unit, set by --price", optother);
-  command_option(&cmd, "-u", "--usd",     "output arbitrary usd units", optusd);
   command_option(&cmd, "-n", "--no-unit", "dont output the selected unit at the end",
                  no_print_unit);
 

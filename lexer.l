@@ -15,7 +15,8 @@
 [ \t]	; // ignore all whitespace
 
 [bB][iI][tT][sS]? {
-    yylval.unit = UNIT_BITS;
+    yylval.lexunit.unit = UNIT_BITS;
+    yylval.lexunit.name = "bits";
     return T_UNIT;
 }
 
@@ -25,23 +26,27 @@ in|IN {
 
 [mM]?[bB][tT][cC] {
   int ism = yytext[0] == 'm' || yytext[0] == 'M';
-  yylval.unit = ism? UNIT_MBTC : UNIT_BTC;
+  yylval.lexunit.unit = ism? UNIT_MBTC : UNIT_BTC;
+  yylval.lexunit.name = ism? "mBTC" : "BTC";
   return T_UNIT;
 }
 
 fiat|FIAT|alt|ALT|usd|USD|cur|CUR|other|OTHER {
-  yylval.unit = UNIT_OTHER;
+  yylval.lexunit.unit = UNIT_OTHER;
+  yylval.lexunit.name = yytext;
   return T_UNIT;
 }
 
 [fF][iI][nN][nN][eE][yY]?[sS]? {
-  yylval.unit = UNIT_FINNEY;
+  yylval.lexunit.unit = UNIT_FINNEY;
+  yylval.lexunit.name = "finneys";
   return T_UNIT;
 }
 
 [mM]?[sS][aA][tT][sS]? {
   int ism = yytext[0] == 'm' || yytext[0] == 'M';
-  yylval.unit = ism ? UNIT_MSATOSHI : UNIT_SATOSHI;
+  yylval.lexunit.unit = ism ? UNIT_MSATOSHI : UNIT_SATOSHI;
+  yylval.lexunit.name = ism ? "msats" : "sats";
   return T_UNIT;
 }
 

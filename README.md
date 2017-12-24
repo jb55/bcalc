@@ -9,7 +9,7 @@
 
   Basic example
 
-    $ bcalc --msat 1 msat + 2 sats + 3 bits
+    $ bcalc 1 msat + 2 sats + 3 bits in msats
     302001 msat
 
   BTC to satoshis
@@ -17,37 +17,37 @@
     $ bcalc 0.02 BTC
     2000000 sat
 
-  satoshis to millisatoshis (for payment channels)
+  satoshis to millisatoshis (for payment channels), also dont print unit
 
-    $ bcalc --no-unit --msat 100 sat
+    $ bcalc --no-unit 100 sat in msats
     100000
 
   mBTC + bits to BTC
 
-    $ bcalc --btc 100 mBTC + 20 bits
+    $ bcalc 100 mBTC + 20 bits in btc
     0.10002 BTC
 
   Division
 
-    $ bcalc --bits 1 BTC / 100
+    $ bcalc 1 BTC / 100 in bits
     10000 bits
 
   Multiplication
 
-    $ bcalc -b '10 mbtc * 30'
+    $ bcalc '10 mbtc * 30 in bits'
     300000 bits
 
   Fiat currencies
 
-    $ bcalc --price 20000 --bits 30 usd
+    $ bcalc --price 20000 30 usd in bits
     1500 bits
 
-    $ bcalc --price 16000 --usd 780 bits
+    $ bcalc --price 16000 780 bits in fiat
     12.48 usd
 
   The Bitcoin pizzas
 
-    $ bcalc --price 0.0041 --btc 41 usd
+    $ bcalc --price 0.0041 41 usd in btc
     10000 BTC
 
 ## Install

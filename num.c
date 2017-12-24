@@ -200,7 +200,7 @@ trim_zeros (char *s, int n)
 }
 
 void
-num_print(struct num *num, enum unit format, int print_unit) {
+num_print(struct num *num, enum unit format, char *unitname, int print_unit) {
   static char buffer[255];
   int64_t msat_multiple = unit_msat_multiple(format);
 
@@ -212,7 +212,8 @@ num_print(struct num *num, enum unit format, int print_unit) {
   printf("%s", buffer);
 
   if (print_unit)
-    printf(" %s", unit_name(format));
+    printf(" %s", unitname? unitname : unit_name(format));
+
   printf("\n");
 }
 

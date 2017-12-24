@@ -1,35 +1,36 @@
 description,args,input,expected output
-scalar division,--btc,1 BTC / 10,0.1 BTC
-scalar multiplication,--btc -n,10 * 1 BTC,10
-multiply 1 BTC to the smallest unit,-m,1 BTC * 0.00000000001,1 msat
-multiply 10 BTC to the smallest unit,-m,10 BTC * 0.000000000001,1 msat
-multiply 100 BTC to the smallest unit,-m,100 BTC * 0.0000000000001,1 msat
-multiply 1000 BTC to the smallest unit,-m,1000 BTC * 0.00000000000001,1 msat
-multiply 100000 BTC to the smallest unit,-m,100000 BTC * 0.0000000000000001,1 msat
-lots of msats,-nB,2 msat * 100000000000,2
-chained multiply,-nB,2100 btc * 0.1 * 0.1,21
-10000 satoshis in bits,-n --bits,10000 sats,100
-satoshis in bits to smallest bit,-b,10000 sats * 0.01,1 bits
-parens,-nB,(10 finney * 1000) / 10,0.0001
-finney plural,-nf,10 finneys,10
-finney singular,-nf,10 finney,10
-satoshi singular,-s,10 sat,10 sat
-satoshi plural,-s,10 sats,10 sat
-msat singular,-m,1 msat,1 msat
-msat plural,-m,1 msats,1 msat
-arg tokens work,--mbtc 1 BTC,,1000 mBTC
-simple fiat test,--price 15000 --msat,1 fiat,6666666 msat
-simple fiat test with bits,--price 15000 --bits,1 fiat,66.66666 bits
-1 usd is 1 BTC,--price 1 --btc,1 usd,1 BTC
-1 BTC is 10 usd,--price 10 --usd,1 btc,10 USD
-1 BTC is 1000000 other,--price 1000000 --other,100 mbtc,100000 other
-1 other @15k is 66.66666 bits,--price 15000 --bits,1 other,66.66666 bits
-1 btc/2 should work,--btc -n,1 btc / 2,0.5
-60 usd at 25000 in bits,--bits --price 25000,60 fiat,2400 bits
-penny usd to msats,--price 20000 --msats,0.01 usd,50000 msat
+scalar division,,1 BTC / 10 in btc,0.1 BTC
+scalar multiplication,-n,10 * 1 BTC in btc,10
+multiply 1 BTC to the smallest unit,,1 BTC * 0.00000000001 in msats,1 msats
+multiply 10 BTC to the smallest unit,,10 BTC * 0.000000000001 in msats,1 msats
+multiply 100 BTC to the smallest unit,,100 BTC * 0.0000000000001 in msats,1 msats
+multiply 1000 BTC to the smallest unit,,1000 BTC * 0.00000000000001 in msats,1 msats
+multiply 100000 BTC to the smallest unit,,100000 BTC * 0.0000000000000001 in msats,1 msats
+lots of msats,-n,2 msat * 100000000000 in btc,2
+chained multiply,-n,2100 btc * 0.1 * 0.1 in btc,21
+10000 satoshis in bits,-n,10000 sats in bits,100
+satoshis in bits to smallest bit,,10000 sats * 0.01 in bits,1 bits
+parens,-n,(10 finney * 1000) / 10 in btc,0.0001
+finney plural,-n,10 finneys in finneys,10
+finney singular,-n,10 finney in finneys,10
+satoshi singular,,10 sat,10 sat
+satoshi plural,,10 sats,10 sat
+msat singular,,1 msat in msat,1 msats
+msat plural,,1 msats in msat,1 msats
+arg tokens work,1 BTC in mbtc,,1000 mBTC
+simple fiat test,--price 15000,1 fiat in msats,6666666 msats
+simple fiat test with bits,--price 15000,1 fiat in bits,66.66666 bits
+1 usd is 1 BTC,--price 1,1 usd in btc,1 BTC
+1 BTC is 10 usd,--price 10,1 btc in usd,10 usd
+1 BTC is 1000000 fiat,--price 1000000,100 mbtc in fiat,100000 fiat
+1 other @15k is 66.66666 bits,--price 15000,1 other in bits,66.66666 bits
+1 btc/2 should work,-n,1 btc / 2 in btc,0.5
+60 usd at 25000 in bits,--price 25000,60 fiat in bits,2400 bits
+penny usd to msats,--price 20000,0.01 usd in msats,50000 msats
 100 mbtc in bits grammar,,100 mbtc in bits,100000 bits
 100 mbtc in bits grammar with arith,,100 mbtc + 2 btc in btc,2.1 BTC
+set usb in grammar,--price 16000,780 bits in usd,12.48 usd
 # failing
-1 BTC is 15000 usd,--price 15000 --usd,1 btc,15000 USD
+1 BTC is 15000 usd,--price 15000,1 btc in usd,15000 USD
 # needs implementation
-1/2 btc should work,--btc,1/2 btc,0.5
+1/2 btc should work,,1/2 btc,0.5
