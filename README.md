@@ -10,12 +10,12 @@
   Basic example
 
     $ bcalc 1 msat + 2 sats + 3 bits in msats
-    302001 msat
+    302001 msats
 
   BTC to satoshis
 
     $ bcalc 0.02 BTC
-    2000000 sat
+    2000000 sats
 
   satoshis to millisatoshis (for payment channels), also dont print unit
 
