@@ -52,7 +52,17 @@
 
 ## Install
 
+  If on Ubuntu, check you have the prerequisites to build this package
+
+    $ sudo apt-get install build-essential bison flex
+
+  Build and install
+
     $ make install
+
+  If you run into errors because your user doesn't have write access to /usr/local/bin then
+
+    $ sudo make install
 
 ## Units
 
