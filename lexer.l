@@ -20,7 +20,7 @@
     return T_UNIT;
 }
 
-in|IN {
+in|IN|to|TO {
   return T_IN;
 }
 
