@@ -8,6 +8,19 @@
 
 #include "parser.tab.h"
 
+static char * copy_num(char *in, int len) {
+    static char buf[2048] = {0};
+    int i, j = 0;
+
+    for (int i = 0; i < len; i++) {
+        char c = in[i];
+        if (c != ',' && c != '_' && c != ' ')
+            buf[j++] = c;
+    }
+    buf[j] = 0;
+}
+
+
 %}
 
 %%
@@ -56,8 +69,8 @@ fiat|FIAT|alt|ALT|usd|USD|cur|CUR|other|OTHER {
   return T_FLOAT;
 }
 
-[0-9]+ {
-  yylval.intval = strtoll(yytext, NULL, 10);
+[0-9_, ]+ {
+  yylval.intval = strtoll(copy_num(yytext, yyleng), NULL, 10);
   return T_INT;
 }
 
