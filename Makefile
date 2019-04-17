@@ -22,7 +22,7 @@ install: $(BIN)
 	mkdir -p $(PREFIX)/bin
 	cp $(BIN) $(PREFIX)/bin
 
-test: $(BIN) fake
+check: $(BIN) fake
 	@sh -c "cd test && ./run"
 
 TAGS: fake
