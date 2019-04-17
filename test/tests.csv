@@ -31,6 +31,7 @@ penny usd to msats,--price 20000,0.01 usd in msats,50000 msats
 100 mbtc in bits grammar with arith,,100 mbtc + 2 btc in btc,2.1 BTC
 set usb in grammar,--price 16000,780 bits in usd,12.48 usd
 --- failing ---,,,
+bitcoin pizzas,--price 0.0041,41 usd to btc,10000 btc
 no floating point issues,,0.1284502 btc in sats,12845020 sats
 1 BTC is 15000 usd,--price 15000,1 btc in usd,15000 USD
 --- needs implementation ---,,,
