@@ -19,8 +19,7 @@ lex.yy.c: lexer.l parser.tab.h
 	flex lexer.l
 
 install: $(BIN) bcalc.1
-	mkdir -p $(PREFIX)/bin
-	mkdir -p $(PREFIX)/share/man/man1
+	mkdir -p $(PREFIX)/bin $(PREFIX)/share/man/man1
 	gzip < bcalc.1 > $(PREFIX)/share/man/man1/bcalc.1.gz
 	cp $(BIN) $(PREFIX)/bin
 
