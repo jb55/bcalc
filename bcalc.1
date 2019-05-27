@@ -1,0 +1,137 @@
+.de dT
+.ds Dt \\$2
+..
+.dT Time-stamp: "2019-05-27"
+.TH BCALC 1 \*(Dt "bcalc" "User Commands"
+.SH NAME
+bcalc \- A simple calculator that understands Bitcoin units
+.SH SYNOPSIS
+.B bcalc
+[\fI\,OPTION\/\fR]... [\fI\,EXPRS\/\fR]...
+
+.SH DESCRIPTION
+bcalc accepts calculator-like commands over stdin or as arguments. See EXAMPLES.
+
+.SS UNITS
+.TS
+tab(;);
+ln.
+BTC;100 000 000 sats
+mBTC (milli-bitcoin);100 000 sats
+bits (μBTC, micro-bitcoin);100 sats
+finney;10 sats
+satoshi (sat);1 sat
+millisatoshi (msat);0.001 sat
+.TE
+
+.SS Basic form
+
+<expr> [to <UNIT>]
+
+.SS
+Plural insensitivity
+.TP
+Units can be suffixed with s without any issues: 10 sat, 10 sats, etc
+
+.SS
+Number spacing
+.TP
+Numbers can have spaces/commas between them for readibility:
+bcalc 1 000 000 sats to mbtc
+.br
+bcalc 10,000 sats to btc
+
+.SH OPTIONS
+ 
+.TP
+.BR \-\-P ", " \-\^\-price
+An arbitrary fiat price, used for fiat conversions
+
+.TP
+.BR \-\-n ", " \-\^\-no\-unit
+Only output the numeric value without the unit
+
+.SH EXAMPLES
+
+.SS
+Basic example
+
+.br
+bcalc 1 msat + 2 sats + 3 bits to msats
+.br
+302001 msats
+
+.SS
+BTC to satoshis
+
+.br
+bcalc 0.02 BTC
+.br
+2000000 sats
+
+.SS
+satoshis to millisatoshis (for payment channels)
+Notice that --no-unit,-n hides the unit here
+
+.br
+bcalc --no-unit 100 sat to msats
+.br
+100000
+
+.SS
+mBTC + bits to BTC
+
+.br
+bcalc 100 mBTC + 20 bits to btc
+.br
+0.10002 BTC
+
+.SS
+Division
+
+.br
+bcalc 1 BTC / 100 to bits
+.br
+10000 bits
+
+.SS
+Multiplication
+Notice you may need to quote or escape the '*' here
+
+.br
+bcalc '10 mbtc * 30 to bits'
+.br
+300000 bits
+
+.SS
+Fiat currencies
+
+.br
+bcalc --price 20000 30 usd to bits
+.br
+1500 bits
+
+.br
+bcalc --price 16000 780 bits to fiat
+.br
+12.48 usd
+
+.SS
+The Bitcoin pizzas
+
+.br
+bcalc --price 0.0041 41 usd to btc
+.br
+10000 BTC
+
+
+.SH BUGS
+Precision issues with BTC -> m/sat conversions such as: bcalc 0.1284502 btc
+.br
+See https://github.com/jb55/bcalc/issues/2
+
+.SH AUTHOR
+
+William Casarin <jb55@jb55.com>
+.br
+Support my Bitcoin projects: bc1qthsruffh3qcn69hux2tcq87x95x8rmu4fdu9sm
