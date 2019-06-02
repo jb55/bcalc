@@ -18,6 +18,8 @@ static char * copy_num(char *in, int len) {
             buf[j++] = c;
     }
     buf[j] = 0;
+
+    return buf;
 }
 
 
