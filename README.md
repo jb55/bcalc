@@ -49,6 +49,16 @@
 
     $ bcalc --price 0.0041 41 usd to btc
     10000 BTC
+    
+  Chain analysis
+  
+    $ bitcoin-iterate -q --output=%oa --start 0 --end 80000 | sed 's,$, sats to btc,g' | bcalc | sort | uniq -c | sort -nr | head -n5
+    84634	50 BTC
+    9778	0.01 BTC
+    7829	0.05 BTC
+    3064	5 BTC
+    1326	0.02 BTC
+
 
 ## Install
 

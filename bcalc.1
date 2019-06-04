@@ -124,6 +124,22 @@ bcalc --price 0.0041 41 usd to btc
 .br
 10000 BTC
 
+.SS
+Chain analysis
+
+.br
+bitcoin-iterate -q --output=%oa --start 0 --end 80000 | sed 's,$, sats to btc,g' | bcalc | sort | uniq -c | sort -nr | head -n5
+.br
+84634	50 BTC
+.br
+9778	0.01 BTC
+.br
+7829	0.05 BTC
+.br
+3064	5 BTC
+.br
+1326	0.02 BTC
+
 
 .SH BUGS
 Precision issues with BTC -> m/sat conversions such as: bcalc 0.1284502 btc
