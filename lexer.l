@@ -14,7 +14,7 @@ static char * copy_num(char *in, int len) {
 
     for (int i = 0; i < len; i++) {
         char c = in[i];
-        if (c != ',' && c != '_' && c != ' ')
+        if (c != ',' && c != '_')
             buf[j++] = c;
     }
     buf[j] = 0;
@@ -71,7 +71,7 @@ fiat|FIAT|alt|ALT|usd|USD|cur|CUR|other|OTHER {
   return T_FLOAT;
 }
 
-[0-9_, ]+ {
+[0-9_,]+ {
   yylval.intval = strtoll(copy_num(yytext, yyleng), NULL, 10);
   return T_INT;
 }
