@@ -68,7 +68,7 @@ join(char *strs[], int len, char *sep) {
   return buf;
 }
 
-int main(int argc, char *argv[argc]) {
+int main(int argc, char *argv[]) {
   command_t cmd;
   char *buffer, *p;
   int yybuffer;
