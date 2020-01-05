@@ -1,5 +1,6 @@
-{ stdenv, bison, flex }:
+{ nixpkgs ? import <nixpkgs> {} }:
 
+with nixpkgs;
 stdenv.mkDerivation rec {
   name = "bcalc";
   version = "0.1";
@@ -8,6 +9,7 @@ stdenv.mkDerivation rec {
 
   installFlags = "PREFIX=$(out)";
 
+  nativeBuildInputs = [ tinycc ];
   buildInputs = [ bison flex ];
 
   meta = with stdenv.lib; {

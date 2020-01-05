@@ -3,11 +3,11 @@ BIN=bcalc
 DEPS=$(wildcard deps/*/*.c) $(GEN)
 PREFIX ?= /usr/local
 
-CFLAGS = -O2 -g -std=c99
+CFLAGS = -O2 -std=c99
 SRC  = num.c
-DEPS = $(wildcard deps/*/*.c) $(SRC)
-OBJS = $(DEPS:.c=.o) parser.tab.o lex.yy.o
-GEN  = parser.tab.c parser.tab.h lex.yy.c $(OBJS)
+DEPS = $(wildcard deps/*/*.c) $(SRC) parser.tab.c lex.yy.c
+OBJS = $(DEPS:.c=.o)
+GEN  = parser.tab.c parser.tab.h lex.yy.c $(OBJS) $(BIN)
 
 
 all: $(BIN)
@@ -29,8 +29,8 @@ check: $(BIN) fake
 TAGS: fake
 	etags -o - *.c > $@
 
-$(BIN): $(OBJS) bcalc.c num.h
-	$(CC) $(CFLAGS) -Ideps -o $@ bcalc.c $(OBJS)
+$(BIN): $(DEPS) bcalc.c
+	$(CC) $(CFLAGS) -Ideps -o $@ $^
 
 clean: fake
 	rm -f $(GEN)
