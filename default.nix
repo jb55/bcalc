@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
 
   installFlags = "PREFIX=$(out)";
 
-  nativeBuildInputs = [ tinycc ];
+  nativeBuildInputs = [ ];
   buildInputs = [ bison flex ];
 
   meta = with lib; {
