@@ -8,6 +8,9 @@
 enum unit g_output_format;
 int g_print_unit;
 
+int yylex(void);
+int yyerror(char* s);
+
 %}
 
 %union {

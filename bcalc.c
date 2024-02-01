@@ -5,6 +5,8 @@
 #include "commander/commander.h"
 #include "num.h"
 
+extern int yy_scan_string(const char *str);
+extern void yy_delete_buffer(int);
 extern int yylex();
 extern int yyparse();
 extern enum unit g_output_format;
